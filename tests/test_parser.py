@@ -28,18 +28,27 @@ class ParserTests(TestCase):
 
         self.assertEqual(expected_data, parse(given_data))
 
+    def test_parse_string_set_in_dictionary(self):
+        given_data = {'StringSet': {'SS': ['Hello', 'World', '!']}}
+        expected_data = {'StringSet': ['Hello', 'World', '!']}
+
+        self.assertEqual(expected_data, parse(given_data))
+
     def test_parse_multiple_types_in_dictionary(self):
         given_data = {
             'String': {'S': 'Hello World!'},
             'Integer': {'N': '1337'},
             'Float': {'N': '13.37'},
-            'Bytes': {'B': 'dGhpcyB0ZXh0IGlzIGJhc2U2NC1lbmNvZGVk'}
+            'Bytes': {'B': 'dGhpcyB0ZXh0IGlzIGJhc2U2NC1lbmNvZGVk'},
+            'StringSet': {'SS': ['Hello', 'World', '!']}
         }
         expected_data = {
             'String': 'Hello World!',
             'Integer': 1337,
             'Float': 13.37,
-            'Bytes': b'dGhpcyB0ZXh0IGlzIGJhc2U2NC1lbmNvZGVk'
+            'Bytes': b'dGhpcyB0ZXh0IGlzIGJhc2U2NC1lbmNvZGVk',
+            'StringSet': ['Hello', 'World', '!']
         }
 
         self.assertEqual(expected_data, parse(given_data))
+

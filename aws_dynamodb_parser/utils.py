@@ -10,5 +10,6 @@ def parse(dynamodb_object):
                 dynamodb_object[key] = int(dynamodb_object[key][data_type])
             except ValueError:
                 dynamodb_object[key] = float(dynamodb_object[key][data_type])
-
+        elif data_type == 'B':
+            dynamodb_object[key] = bytes(dynamodb_object[key][data_type], 'utf-8')
     return dynamodb_object

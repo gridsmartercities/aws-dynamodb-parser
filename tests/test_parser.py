@@ -40,6 +40,12 @@ class ParserTests(TestCase):
 
         self.assertEqual(expected_data, parse(given_data))
 
+    def test_parse_byte_set_in_dictionary(self):
+        given_data = {'ByteSet': {'BS': ['U3Vubnk=', 'UmFpbnk=']}}
+        expected_data = {'ByteSet': [b'U3Vubnk=', b'UmFpbnk=']}
+
+        self.assertEqual(expected_data, parse(given_data))
+
     def test_parse_multiple_types_in_dictionary(self):
         given_data = {
             'String': {'S': 'Hello World!'},
@@ -47,7 +53,8 @@ class ParserTests(TestCase):
             'Float': {'N': '13.37'},
             'Bytes': {'B': 'dGhpcyB0ZXh0IGlzIGJhc2U2NC1lbmNvZGVk'},
             'StringSet': {'SS': ['Hello', 'World', '!']},
-            'NumberSet': {'NS': ['1337', '13.37']}
+            'NumberSet': {'NS': ['1337', '13.37']},
+            'ByteSet': {'BS': ['U3Vubnk=', 'UmFpbnk=']}
         }
         expected_data = {
             'String': 'Hello World!',
@@ -55,7 +62,8 @@ class ParserTests(TestCase):
             'Float': 13.37,
             'Bytes': b'dGhpcyB0ZXh0IGlzIGJhc2U2NC1lbmNvZGVk',
             'StringSet': ['Hello', 'World', '!'],
-            'NumberSet': [1337, 13.37]
+            'NumberSet': [1337, 13.37],
+            'ByteSet': [b'U3Vubnk=', b'UmFpbnk=']
         }
 
         self.assertEqual(expected_data, parse(given_data))

@@ -2,28 +2,38 @@
 
 def parse(dynamodb_object):
     for key in dynamodb_object.keys():
-        data_type = list(dynamodb_object[key].keys())[0]
-        if data_type == 'S':
-            dynamodb_object[key] = dynamodb_object[key][data_type]
-
-        elif data_type == 'N':
-            dynamodb_object[key] = to_num(dynamodb_object[key][data_type])
-
-        elif data_type == 'B':
-            dynamodb_object[key] = bytes(dynamodb_object[key][data_type], 'utf-8')
-
-        elif data_type == 'SS':
-            dynamodb_object[key] = dynamodb_object[key][data_type]
-
-        elif data_type == 'NS':
-            dynamodb_object[key] = [to_num(data) for data in dynamodb_object[key][data_type]]
-
-        elif data_type == 'BS':
-            dynamodb_object[key] = [bytes(data, 'utf-8') for data in dynamodb_object[key][data_type]]
-
-        elif data_type == 'M':
-            dynamodb_object[key] = parse(dynamodb_object[key][data_type])
+        dynamodb_object[key] = parse_pair(dynamodb_object[key])
     return dynamodb_object
+
+
+def parse_pair(type_value_pair):  # noqa: pylint - too-many-return-statements
+    data_type = list(type_value_pair.keys())[0]
+
+    if data_type == 'S':
+        return type_value_pair[data_type]
+
+    if data_type == 'N':
+        return to_num(type_value_pair[data_type])
+
+    if data_type == 'B':
+        return bytes(type_value_pair[data_type], 'utf-8')
+
+    if data_type == 'SS':
+        return type_value_pair[data_type]
+
+    if data_type == 'NS':
+        return [to_num(data) for data in type_value_pair[data_type]]
+
+    if data_type == 'BS':
+        return [bytes(data, 'utf-8') for data in type_value_pair[data_type]]
+
+    if data_type == 'M':
+        return parse(type_value_pair[data_type])
+
+    if data_type == 'L':
+        return [parse_pair(item) for item in type_value_pair[data_type]]
+
+    raise TypeError('Unknown dynamodb data type \'%s\'' % data_type)
 
 
 def to_num(number):

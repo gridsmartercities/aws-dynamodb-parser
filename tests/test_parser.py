@@ -170,3 +170,10 @@ class ParserTests(TestCase):
         }
 
         self.assertEqual(expected_data, parse(given_data))
+
+    def test_parse_unknown_type_in_dictionary(self):
+        given_data = {
+            'Unknown': {'Q': 'Quanta'}
+        }
+
+        self.assertRaises(TypeError, parse, given_data)

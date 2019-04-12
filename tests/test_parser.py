@@ -24,7 +24,7 @@ class ParserTests(TestCase):
 
     def test_parse_bytes_type_in_dictionary(self):
         given_data = {'Bytes': {'B': 'dGhpcyB0ZXh0IGlzIGJhc2U2NC1lbmNvZGVk'}}
-        expected_data = {'Bytes': b'dGhpcyB0ZXh0IGlzIGJhc2U2NC1lbmNvZGVk'}
+        expected_data = {'Bytes': b'this text is base64-encoded'}
 
         self.assertEqual(expected_data, parse(given_data))
 
@@ -42,7 +42,7 @@ class ParserTests(TestCase):
 
     def test_parse_byte_set_in_dictionary(self):
         given_data = {'ByteSet': {'BS': ['U3Vubnk=', 'UmFpbnk=']}}
-        expected_data = {'ByteSet': [b'U3Vubnk=', b'UmFpbnk=']}
+        expected_data = {'ByteSet': [b'Sunny', b'Rainy']}
 
         self.assertEqual(expected_data, parse(given_data))
 
@@ -65,10 +65,10 @@ class ParserTests(TestCase):
                 'String': 'Hello World!',
                 'Integer': 1337,
                 'Float': 13.37,
-                'Bytes': b'dGhpcyB0ZXh0IGlzIGJhc2U2NC1lbmNvZGVk',
+                'Bytes': b'this text is base64-encoded',
                 'StringSet': ['Hello', 'World', '!'],
                 'NumberSet': [1337, 13.37],
-                'ByteSet': [b'U3Vubnk=', b'UmFpbnk=']
+                'ByteSet': [b'Sunny', b'Rainy']
             }
         }
 
@@ -89,9 +89,15 @@ class ParserTests(TestCase):
             }
         }
         expected_data = {
-            'List': ['Hello World!', 1337, 13.37, b'dGhpcyB0ZXh0IGlzIGJhc2U2NC1lbmNvZGVk', ['Hello', 'World', '!'],
-                     [1337, 13.37], [b'U3Vubnk=', b'UmFpbnk=']]
+            'List': ['Hello World!', 1337, 13.37, b'this text is base64-encoded', ['Hello', 'World', '!'],
+                     [1337, 13.37], [b'Sunny', b'Rainy']]
         }
+
+        self.assertEqual(expected_data, parse(given_data))
+
+    def test_parse_null_type_in_dictionary(self):
+        given_data = {'DoesntExist': {'NULL': True}}
+        expected_data = {'DoesntExist': None}
 
         self.assertEqual(expected_data, parse(given_data))
 
@@ -131,21 +137,21 @@ class ParserTests(TestCase):
             'String': 'Hello World!',
             'Integer': 1337,
             'Float': 13.37,
-            'Bytes': b'dGhpcyB0ZXh0IGlzIGJhc2U2NC1lbmNvZGVk',
+            'Bytes': b'this text is base64-encoded',
             'StringSet': ['Hello', 'World', '!'],
             'NumberSet': [1337, 13.37],
-            'ByteSet': [b'U3Vubnk=', b'UmFpbnk='],
+            'ByteSet': [b'Sunny', b'Rainy'],
             'Map': {
                 'String': 'Hello World!',
                 'Integer': 1337,
                 'Float': 13.37,
-                'Bytes': b'dGhpcyB0ZXh0IGlzIGJhc2U2NC1lbmNvZGVk',
+                'Bytes': b'this text is base64-encoded',
                 'StringSet': ['Hello', 'World', '!'],
                 'NumberSet': [1337, 13.37],
-                'ByteSet': [b'U3Vubnk=', b'UmFpbnk=']
+                'ByteSet': [b'Sunny', b'Rainy']
             },
-            'List': ['Hello World!', 1337, 13.37, b'dGhpcyB0ZXh0IGlzIGJhc2U2NC1lbmNvZGVk', ['Hello', 'World', '!'],
-                     [1337, 13.37], [b'U3Vubnk=', b'UmFpbnk=']]
+            'List': ['Hello World!', 1337, 13.37, b'this text is base64-encoded', ['Hello', 'World', '!'],
+                     [1337, 13.37], [b'Sunny', b'Rainy']]
         }
 
         self.assertEqual(expected_data, parse(given_data))

@@ -46,6 +46,34 @@ class ParserTests(TestCase):
 
         self.assertEqual(expected_data, parse(given_data))
 
+    def test_parse_map_in_dictionary(self):
+        given_data = {
+            'Map': {
+                'M': {
+                    'String': {'S': 'Hello World!'},
+                    'Integer': {'N': '1337'},
+                    'Float': {'N': '13.37'},
+                    'Bytes': {'B': 'dGhpcyB0ZXh0IGlzIGJhc2U2NC1lbmNvZGVk'},
+                    'StringSet': {'SS': ['Hello', 'World', '!']},
+                    'NumberSet': {'NS': ['1337', '13.37']},
+                    'ByteSet': {'BS': ['U3Vubnk=', 'UmFpbnk=']}
+                }
+            }
+        }
+        expected_data = {
+            'Map': {
+                'String': 'Hello World!',
+                'Integer': 1337,
+                'Float': 13.37,
+                'Bytes': b'dGhpcyB0ZXh0IGlzIGJhc2U2NC1lbmNvZGVk',
+                'StringSet': ['Hello', 'World', '!'],
+                'NumberSet': [1337, 13.37],
+                'ByteSet': [b'U3Vubnk=', b'UmFpbnk=']
+            }
+        }
+
+        self.assertEqual(expected_data, parse(given_data))
+
     def test_parse_multiple_types_in_dictionary(self):
         given_data = {
             'String': {'S': 'Hello World!'},
@@ -54,7 +82,18 @@ class ParserTests(TestCase):
             'Bytes': {'B': 'dGhpcyB0ZXh0IGlzIGJhc2U2NC1lbmNvZGVk'},
             'StringSet': {'SS': ['Hello', 'World', '!']},
             'NumberSet': {'NS': ['1337', '13.37']},
-            'ByteSet': {'BS': ['U3Vubnk=', 'UmFpbnk=']}
+            'ByteSet': {'BS': ['U3Vubnk=', 'UmFpbnk=']},
+            'Map': {
+                'M': {
+                    'String': {'S': 'Hello World!'},
+                    'Integer': {'N': '1337'},
+                    'Float': {'N': '13.37'},
+                    'Bytes': {'B': 'dGhpcyB0ZXh0IGlzIGJhc2U2NC1lbmNvZGVk'},
+                    'StringSet': {'SS': ['Hello', 'World', '!']},
+                    'NumberSet': {'NS': ['1337', '13.37']},
+                    'ByteSet': {'BS': ['U3Vubnk=', 'UmFpbnk=']}
+                }
+            }
         }
         expected_data = {
             'String': 'Hello World!',
@@ -63,7 +102,16 @@ class ParserTests(TestCase):
             'Bytes': b'dGhpcyB0ZXh0IGlzIGJhc2U2NC1lbmNvZGVk',
             'StringSet': ['Hello', 'World', '!'],
             'NumberSet': [1337, 13.37],
-            'ByteSet': [b'U3Vubnk=', b'UmFpbnk=']
+            'ByteSet': [b'U3Vubnk=', b'UmFpbnk='],
+            'Map': {
+                'String': 'Hello World!',
+                'Integer': 1337,
+                'Float': 13.37,
+                'Bytes': b'dGhpcyB0ZXh0IGlzIGJhc2U2NC1lbmNvZGVk',
+                'StringSet': ['Hello', 'World', '!'],
+                'NumberSet': [1337, 13.37],
+                'ByteSet': [b'U3Vubnk=', b'UmFpbnk=']
+            }
         }
 
         self.assertEqual(expected_data, parse(given_data))

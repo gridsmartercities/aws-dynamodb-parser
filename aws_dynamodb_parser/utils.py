@@ -20,6 +20,9 @@ def parse(dynamodb_object):
 
         elif data_type == 'BS':
             dynamodb_object[key] = [bytes(data, 'utf-8') for data in dynamodb_object[key][data_type]]
+
+        elif data_type == 'M':
+            dynamodb_object[key] = parse(dynamodb_object[key][data_type])
     return dynamodb_object
 
 

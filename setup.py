@@ -19,8 +19,6 @@ setup(name='aws-dynamodb-parser',
                    'Natural Language :: English'
                    ],
       keywords='aws lambda decorator',
-      packages=find_packages(exclude=('tests', 'examples')),
-      install_requires=[
-      ],
+      packages=find_packages(exclude=('tests')),
       zip_safe=False
       )

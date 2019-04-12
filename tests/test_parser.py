@@ -101,6 +101,15 @@ class ParserTests(TestCase):
 
         self.assertEqual(expected_data, parse(given_data))
 
+    def test_parse_bool_type_in_dictionary(self):
+        given_data = {
+            'BoolTrue': {'BOOL': True},
+            'BoolFalse': {'BOOL': False}
+        }
+        expected_data = {'BoolTrue': True, 'BoolFalse': False}
+
+        self.assertEqual(expected_data, parse(given_data))
+
     def test_parse_multiple_types_in_dictionary(self):
         given_data = {
             'String': {'S': 'Hello World!'},
@@ -131,7 +140,10 @@ class ParserTests(TestCase):
                     {'NS': ['1337', '13.37']},
                     {'BS': ['U3Vubnk=', 'UmFpbnk=']}
                 ]
-            }
+            },
+            'DoesntExist': {'NULL': True},
+            'BoolTrue': {'BOOL': True},
+            'BoolFalse': {'BOOL': False}
         }
         expected_data = {
             'String': 'Hello World!',
@@ -151,7 +163,10 @@ class ParserTests(TestCase):
                 'ByteSet': [b'Sunny', b'Rainy']
             },
             'List': ['Hello World!', 1337, 13.37, b'this text is base64-encoded', ['Hello', 'World', '!'],
-                     [1337, 13.37], [b'Sunny', b'Rainy']]
+                     [1337, 13.37], [b'Sunny', b'Rainy']],
+            'DoesntExist': None,
+            'BoolTrue': True,
+            'BoolFalse': False
         }
 
         self.assertEqual(expected_data, parse(given_data))

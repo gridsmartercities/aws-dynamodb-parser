@@ -10,7 +10,7 @@ def parse(dynamodb_object):
 def parse_pair(type_value_pair):  # noqa: pylint - too-many-return-statements
     data_type = list(type_value_pair.keys())[0]
 
-    if data_type == 'S':
+    if data_type == 'S' or data_type == 'BOOL':
         return type_value_pair[data_type]
 
     if data_type == 'N':
@@ -36,6 +36,7 @@ def parse_pair(type_value_pair):  # noqa: pylint - too-many-return-statements
 
     if data_type == 'NULL' and type_value_pair[data_type]:
         return None
+
     raise TypeError('Unknown dynamodb data type \'%s\' with value \'%s\'' % (data_type, type_value_pair[data_type]))
 
 

@@ -38,6 +38,12 @@ Check Information
  External Config: pylint: /Users/rob/Documents/code/grid/aws-dynamodb-parser/pylintrc
 ```
 
+We require code to have correct type hinting using [Mypy](http://www.mypy-lang.org/) to check type hints.
+```sh
+$ ./tools/mypy.sh
+Success: no issues found in 2 source files
+```
+
 And lastly that [Bandit](https://pypi.org/project/bandit/) security checks pass
 ```sh
 $ ./tools/bandit.sh

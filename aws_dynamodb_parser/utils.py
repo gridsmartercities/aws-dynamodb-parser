@@ -2,7 +2,7 @@ import base64
 from typing import Any, Union
 
 
-def parse(dynamodb_object: Union[dict, list]) -> dict:
+def parse(dynamodb_object: Union[dict, list]) -> Union[dict, list]:
     if isinstance(dynamodb_object, list):
         return [parse(obj) for obj in dynamodb_object]
 

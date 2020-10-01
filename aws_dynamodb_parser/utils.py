@@ -8,22 +8,22 @@ def parse(dynamodb_object: Union[dict, list]) -> dict:
 
     parsed = {}
     for key in dynamodb_object.keys():
-        parsed[key] = parse_pair(dynamodb_object[key])
+        parsed[key] = _parse_pair(dynamodb_object[key])
     return parsed
 
 
 # pylint:disable=too-many-return-statements
-def parse_pair(type_value_pair: dict) -> Any:
+def _parse_pair(type_value_pair: dict) -> Any:
     data_type = list(type_value_pair.keys())[0]
 
     if data_type in {"S", "SS", "BOOL"}:
         return type_value_pair[data_type]
 
     if data_type == "N":
-        return to_num(type_value_pair[data_type])
+        return _to_num(type_value_pair[data_type])
 
     if data_type == "NS":
-        return [to_num(data) for data in type_value_pair[data_type]]
+        return [_to_num(data) for data in type_value_pair[data_type]]
 
     if data_type == "B":
         return base64.decodebytes(bytes(type_value_pair[data_type], "utf-8"))
@@ -35,7 +35,7 @@ def parse_pair(type_value_pair: dict) -> Any:
         return parse(type_value_pair[data_type])
 
     if data_type == "L":
-        return [parse_pair(item) for item in type_value_pair[data_type]]
+        return [_parse_pair(item) for item in type_value_pair[data_type]]
 
     if data_type == "NULL" and type_value_pair[data_type]:
         return None
@@ -43,7 +43,7 @@ def parse_pair(type_value_pair: dict) -> Any:
     raise TypeError("Unknown DynamoDB data type '%s' with value '%s'" % (data_type, type_value_pair[data_type]))
 
 
-def to_num(number: Any) -> Union[float, int]:
+def _to_num(number: Any) -> Union[float, int]:
     try:
         return int(number)
     except ValueError:

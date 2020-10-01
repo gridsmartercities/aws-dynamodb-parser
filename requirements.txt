@@ -1,3 +1,4 @@
 coverage
 prospector
 bandit
+pylint-quotes

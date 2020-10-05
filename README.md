@@ -1,5 +1,6 @@
 [<img align="right" alt="Grid Smarter Cities" src="https://s3.eu-west-2.amazonaws.com/open-source-resources/grid_smarter_cities_small.png">](https://www.gridsmartercities.com/)
 
+![Build Status](https://codebuild.eu-west-2.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiZGdTRFhHdng1Mks0THRaT2VkR3JYaWpOWGlwNjYvVGVYWUNoZGp6VW9MZDRMZ1I0WDFVNFJ0cHBORkJJVSswMWQ1VkxISGNFR1dWTElrWThDTVBldjUwPSIsIml2UGFyYW1ldGVyU3BlYyI6IlFMS1V1K0F5a1BHRTZlN0IiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 [![PyPI](https://img.shields.io/pypi/v/aws-dynamodb-parser.svg?color=brightgreen)](https://pypi.org/project/aws-dynamodb-parser/)
 
@@ -76,7 +77,7 @@ items = response.get("Items", [])
 print(items)
 # [{'id': {'S': 'a77b5fc0-75cb-408c-bebf-863873506cce'}, 'timestamp': {'S': '2020-10-01 13:13:47.388492'}, 'name': {'S': 'First test entry'}}, {'id': {'S': 'a77b5fc0-75cb-408c-bebf-863873506cce'}, 'timestamp': {'S': '2020-10-01 13:15:25.376589'}, 'name': {'S': 'Second test entry'}}]
 
-entries = [parse(item) for item in items]
+entries = parse(items)
 print(entries)
 # [{'id': 'a77b5fc0-75cb-408c-bebf-863873506cce', 'timestamp': '2020-10-01 13:13:47.388492, 'name': 'First test entry'}, {'id': 'a77b5fc0-75cb-408c-bebf-863873506cce', 'timestamp': '2020-10-01 13:15:25.376589', 'name': 'Second test entry'}]
 ```

@@ -24,8 +24,24 @@ aws_dynamodb_parser/utils.py      29      0     24      0   100%
 We require all code to adhere to our linting style as defined in [pylintrc](https://github.com/gridsmartercities/aws-dynamodb-parser/blob/master/pylintrc). We use [prospector](https://pypi.org/project/prospector/) to run linting checks.
 ```sh
 $ prospector
+Check Information
+=================
+         Started: 2020-10-01 17:55:32.697915
+        Finished: 2020-10-01 17:55:33.725397
+      Time Taken: 1.03 seconds
+       Formatter: text
+        Profiles: .prospector.yaml, full_pep8, no_doc_warnings, strictness_veryhigh, no_member_warnings
+      Strictness: from profile
+  Libraries Used:
+       Tools Run: dodgy, mccabe, pep8, profile-validator, pyflakes, pylint
+  Messages Found: 0
+ External Config: pylint: /Users/rob/Documents/code/grid/aws-dynamodb-parser/pylintrc
+```
 
-# clean prospector output will be added once the repo is cleaned up
+We require code to have correct type hinting using [Mypy](http://www.mypy-lang.org/) to check type hints.
+```sh
+$ ./tools/mypy.sh
+Success: no issues found in 2 source files
 ```
 
 And lastly that [Bandit](https://pypi.org/project/bandit/) security checks pass

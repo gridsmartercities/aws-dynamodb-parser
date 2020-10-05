@@ -2,3 +2,4 @@ coverage
 prospector
 bandit
 pylint-quotes
+mypy

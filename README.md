@@ -1,7 +1,7 @@
 [<img align="right" alt="Grid Smarter Cities" src="https://s3.eu-west-2.amazonaws.com/open-source-resources/grid_smarter_cities_small.png">](https://www.gridsmartercities.com/)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
-[![PyPI](https://img.shields.io/pypi/v/pywsitest.svg?color=brightgreen)](https://pypi.org/project/aws-dynamodb-parser/)
+[![PyPI](https://img.shields.io/pypi/v/aws-dynamodb-parser.svg?color=brightgreen)](https://pypi.org/project/aws-dynamodb-parser/)
 
 # AWS DynamoDB Parser
 

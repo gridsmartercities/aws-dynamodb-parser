@@ -8,7 +8,8 @@ phases:
       - pip install -r requirements.txt
   pre_build:
     commands:
-      - bandit -r .
-      - prospector
       - coverage run --source="." -m unittest
       - coverage report -m --fail-under=100 --omit=*/__init__.py,tests/*,setup.py
+      - mypy aws_dynamodb_parser
+      - prospector
+      - bandit -r .

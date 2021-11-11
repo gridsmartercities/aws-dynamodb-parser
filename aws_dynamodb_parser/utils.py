@@ -1,3 +1,4 @@
+
 import base64
 from typing import Any, Union
 
@@ -37,7 +38,7 @@ def _parse_property(prop: dict) -> Any:
 
     if data_type == "NULL" and value:
         return None
-
+# pylint:disable=consider-using-f-string
     raise TypeError("Unknown DynamoDB data type '%s' with value '%s'" % (data_type, value))
 
 

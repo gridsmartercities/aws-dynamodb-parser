@@ -1,10 +1,10 @@
 from setuptools import setup, find_packages
 
-LONG_DESCRIPTION = open("README.md").read()
+LONG_DESCRIPTION = open("README.md").read()  # pylint:disable=consider-using-with,unspecified-encoding
 
 setup(
     name="aws-dynamodb-parser",
-    version="0.1.2",
+    version="0.1.3",
     description="AWS DynamoDB utility for parsing DynamoDB responses",
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
